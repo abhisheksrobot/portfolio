@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhishek Singh</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .navbar.slide {
+        transform: translateY(-100%);
+      }
+
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .navbar-nav {
+        display: flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .nav-item {
+        margin: 0 10px;
+      }
+
+      .nav-item a {
+        display: block;
+        padding: 10px;
+        color: #333;
+        text-decoration: none;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .nav-item a:hover {
+        color: #0077b6;
+      }
+
+      .navbar-toggle {
+        position: relative;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .navbar-toggle-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 2px;
+        background-color: #333;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .navbar-toggle-icon:before,
+      .navbar-toggle-icon:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #333;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .navbar-toggle-icon:before {
+        top: -6px;
+      }
+
+      .navbar-toggle-icon:after {
+        bottom: -6px;
+      }
+
+      .navbar-toggle.open .navbar-toggle-icon {
+        background-color: transparent;
+      }
+
+      .navbar-toggle.open .navbar-toggle-icon:before {
+        transform: rotate(45deg);
+        top: 0;
+      }
+
+      .navbar-toggle.open .navbar-toggle-icon:after {
+        transform: rotate(-45deg);
+        bottom: 0;
+      }
+
+      @media screen and (max-width: 767px) {
+        .navbar {
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+          height: auto;
+          padding: 10px;
+        }
+
+        .navbar-nav {
+          flex-direction: column;
+          align-items: flex-start;
+          margin-top: 10px;
+        }
+
+        .nav-item {
+          margin: 5px 0;
+        }
+
+        .navbar-toggle {
+          margin-left: auto;
+          margin-top: 10px;
+        }
+
+        .navbar-toggle-icon {
+          width: 20px;
+          height: 2px;
+        }
+
+        .navbar-toggle-icon:before,
+        .navbar-toggle-icon:after {
+          width: 100%;
+          height: 2px;
+        }
+
+        .navbar-toggle-icon:before {
+          top: -4px;
+        }
+
+        .navbar-toggle-icon:after {
+          bottom: -4px;
+        }
+      }
+
+      /* Hero section */
+      .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url("https://source.unsplash.com/1600x900/?technology");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        text-align: center;
+        padding: 0 2rem;
+      }
+
+      .hero-title {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-subtitle {
+        font-size: 2rem;
+        font-weight: 400;
+        margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-button {
+        font-size: 1.5rem;
+        font-weight: 700;
+        padding: 1rem 2rem;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .hero-button:hover {
+        background-color: #555;
+      }
+
+      /* About section */
+      .about {
+        padding: 4rem 2rem;
+        background-color: #f4f4f4;
+      }
+
+      .about-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .about-text {
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      /* Services section */
+      .services {
+        padding: 4rem 2rem;
+        background-color: #f4f4f4;
+      }
+
+      .services-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .services-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .service {
+        flex-basis: 30%;
+        padding: 2rem;
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+      }
+
+      .service:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .service-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .service-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .service-text {
+        font-size: 1.2rem;
+        font-weight: 400;
+        text-align: center;
+      }
+
+      /* Contact section */
+      .contact {
+        padding: 4rem 2rem;
+        background-image: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          ),
+          url("https://source.unsplash.com/1600x900/?contact");
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        text-align: center;
+      }
+
+      .contact-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .contact-input {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+      }
+
+      .contact-input:hover,
+      .contact-input:focus {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .contact-button {
+        width: 20%;
+        padding: 1rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      .contact-button:hover {
+        background-color: #555;
+      }
+
+      /* Footer section */
+      .footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem 2rem;
+        color: #fff;
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .footer-social {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-icon {
+        font-size: 1.5rem;
+        color: #cf2626;
+        transition: color 0.3s ease-in-out;
+      }
+
+      .social-icon:hover {
+        color: #bbb;
+      }
+
+      .footer-text {
+        font-size: 1.2rem;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar section -->
+    <nav class="navbar">
+      <a href="#" class="navbar-brand"
+        ><img
+          src="C:\Users\91882\Downloads\WhatsApp Image 2022-11-22 at 23.36.32 (3).jpeg"
+          height="100"
+      /></a>
+      <div class="navbar-brand">Abhishek</div>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="#home">Home</a></li>
+        <li class="nav-item"><a href="#about">About</a></li>
+        <li class="nav-item"><a href="#services">Services</a></li>
+        <li class="nav-item"><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="navbar-toggle">
+        <span class="navbar-toggle-icon"></span>
+      </button>
+    </nav>
+
+    <!-- Hero section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h4 class="hero-title">Let's make Your dream come true</h4>
+        <a href="#contact" class="hero-button">Get in touch</a>
+      </div>
+    </section>
+
+    <!-- About section -->
+    <section class="about" id="about">
+      <div class="about-content">
+        <h3 class="about-title">About Me</h3>
+        <div class="about-text">
+          <p>Hello there!,</p>
+          <p>
+            I'm Abhishek Singh a passionate web developer with 1 year of
+            experience in the field. My love for coding and problem-solving led
+            me to pursue a career in web development, where I specialize in
+            creating intuitive, responsive, and user-friendly websites using the
+            latest technologies and best practices. Apart from my technical
+            skills, I'm also a team player who enjoys collaborating with clients
+            and colleagues to deliver exceptional results. I'm always looking
+            for ways to learn and grow as a developer, and I stay up-to-date
+            with the latest industry trends and best practices to ensure that my
+            work is always at the forefront of web development. If you're
+            looking for a skilled and dedicated web developer to bring your
+            ideas to life, I'd love to hear from you. Let's work together to
+            create a stunning and functional website that exceeds your
+            expectations. lets make your dream come true
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services section -->
+    <section class="services" id="services">
+      <div class="services-content">
+        <h3 class="services-title">My Services</h3>
+        <div class="services-items">
+          <div class="services-item">
+            <i class="fas fa-code fa-3x"></i>
+            <h1 class="services-item-title">Web Development</h1>
+            <p class="services-item-text">
+              I pride myself on delivering high-quality work that meets the
+              unique needs and goals of each client. Whether you're looking to
+              create a simple website or a complex web application, I have the
+              skills, knowledge, and passion to turn your vision into a reality.
+              With my commitment to ongoing learning and professional
+              development, I stay ahead of the curve in the ever-evolving world
+              of web development. Contact me today to learn more about how I can
+              help take your online presence to the next level.
+            </p>
+            <h2>Skills</h2>
+            <ul>
+              <li>html</li>
+              <li>css</li>
+              <li>javascript</li>
+              <li>react.js</li>
+              <li>node.js</li>
+              <li>python</li>
+              <li>webflow</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact section -->
+    <section class="contact" id="contact">
+      <div class="contact-content">
+        <h2 class="contact-title">Get in Touch</h2>
+          <form action="/send-mail" method="post">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required />
+      </div>
+      <div>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="contact-button">Send</button>
+    </form>
+
+    <!-- Footer section -->
+    <footer class="footer">
+      <h3 class="footer-logo">Thank You</h3>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/nalla4u_/">Instagram</a>
+        <a href="https://twitter.com/nalla4u_">Twitter</a>
+        <a href="https://www.linkedin.com/in/abhishek-singh-037921259/"
+          >Linkedin</a
+        >
+        <a href="https://github.com/Abhisheksinghsaini">Github</a>
+      </div>
+    </footer>
+  </body>
+</html>
